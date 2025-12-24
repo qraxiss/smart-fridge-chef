@@ -1,10 +1,13 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import recipes from '../data/recipes';
 import { parseIngredientList, getRecipeImageUrl } from '../utils/helpers';
+import { RecipeWithMatch } from '../types';
 
 const RecipeDetailPage: React.FC = () => {
     const { title } = useParams<{ title: string }>();
+    const location = useLocation();
+    const { matchingIngredients } = (location.state as { matchingIngredients: string[] }) || { matchingIngredients: [] };
     
     // Find recipe by title (decodeURIComponent is handled by Router mostly, but good to be safe)
     const recipe = recipes.find(r => r.Title === decodeURIComponent(title || ''));
@@ -59,6 +62,18 @@ const RecipeDetailPage: React.FC = () => {
                                 </svg>
                                 Ingredients
                             </h2>
+                            {matchingIngredients.length > 0 && (
+                                <div className="mb-6 pb-4 border-b border-green-200">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Your Matching Ingredients:</h3>
+                                    <ul className="flex flex-wrap gap-2">
+                                        {matchingIngredients.map((ing, idx) => (
+                                            <li key={idx} className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm">
+                                                {ing}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                             <ul className="space-y-4">
                                 {ingredientsList.map((ing, idx) => (
                                     <li key={idx} className="flex items-start">

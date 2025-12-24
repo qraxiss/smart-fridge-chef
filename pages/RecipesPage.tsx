@@ -44,6 +44,7 @@ const RecipesPage: React.FC = () => {
                     {suitableRecipes.map((recipe, index) => (
                         <Link 
                             to={`/recipe/${encodeURIComponent(recipe.Title)}`} 
+                            state={{ matchingIngredients: recipe.matchingIngredients }} 
                             key={index}
                             className="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
                         >
@@ -56,12 +57,20 @@ const RecipesPage: React.FC = () => {
                                         (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Recipe';
                                     }}
                                 />
+                                <div className="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                                    {recipe.matchingCount} Matches
+                                </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
                             <div className="flex-1 p-6 flex flex-col">
                                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-2 mb-2">
                                     {recipe.Title}
                                 </h3>
+                                <div className="mb-2">
+                                    <p className="text-sm text-gray-600">
+                                        <span className="font-semibold">Matching Ingredients:</span> {recipe.matchingIngredients.join(', ')}
+                                    </p>
+                                </div>
                                 <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
                                     <span className="text-sm font-medium text-primary">View Recipe &rarr;</span>
                                     <span className="text-xs text-gray-400 uppercase tracking-wider">

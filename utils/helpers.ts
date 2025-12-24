@@ -1,16 +1,28 @@
 import recipes from '../data/recipes';
-import { Recipe } from '../types';
+import { Recipe, RecipeWithMatch } from '../types';
 
-export const findSuitableRecipes = (userIngredients: string[]): Recipe[] => {
-    if (userIngredients.length === 0) return [];
-    
-    return recipes.filter((recipe) => {
-        const recipeIngredientsLower = recipe.Ingredients.toLowerCase();
-        // Check if ANY of the user's ingredients are in the recipe
-        return userIngredients.some((ingredient) =>
-            recipeIngredientsLower.includes(ingredient.toLowerCase())
-        );
-    });
+export const findSuitableRecipes = (
+    userIngredients: string[]
+): RecipeWithMatch[] => {
+    return recipes
+        .map((recipe) => {
+            const recipeIngredientsLower = recipe.Ingredients.toLowerCase();
+            const matchingIngredients: string[] = [];
+            
+            userIngredients.forEach((ingredient) => {
+                if (recipeIngredientsLower.includes(ingredient.toLowerCase())) {
+                    matchingIngredients.push(ingredient);
+                }
+            });
+
+            return {
+                ...recipe,
+                matchingCount: matchingIngredients.length,
+                matchingIngredients: matchingIngredients,
+            };
+        })
+        .filter((recipe) => recipe.matchingCount > 0)
+        .sort((a, b) => b.matchingCount - a.matchingCount);
 };
 
 // Helper to safely parse the python-style list string provided in the data
