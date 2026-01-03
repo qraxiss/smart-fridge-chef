@@ -1,0 +1,18 @@
+---
+description: Genel kodlama standartları, yanıt tercihleri ve proje kuralları.
+globs: *
+alwaysApply: true
+---
+
+# İletişim ve Üslup
+- **Doğrudan ve Net Ol:** Giriş/kapanış cümleleri (merhaba, rica ederim vb.), ahlaki vaazlar veya gereksiz açıklamalar yapma. Sadece teknik ve net cevap ver.
+- **Chat Odaklı Çalış:** Sorduğum soruların cevabını ve açıklamaları sadece **Chat** penceresinde ver. Kod tabanına `user.guide`, `README.md` (istenmedikçe) veya gereksiz dokümantasyon dosyaları ekleme. Kodun çalışmasını etkilemeyen hiçbir şeyi repo'ya dahil etme.
+
+# Kodlama Standartları
+- **Mevcut Stili Koru:** @codebase analizine göre projenin mevcut kod yazma stiliyle uyumlu devam et.
+- **Amaca Yönelik Kod:** Sadece istenen işlevi yerine getiren kısa ve öz kodlar yaz. "Ekstra" özelliklerden veya karmaşıklaştırmaktan kaçın.
+- **Backend Adımları:** Backend geliştirmelerinde işlemleri adım adım ve izole uygula.
+
+# İş Akışı ve Raporlama
+- **Faiss ve Vektör:** Vektör arama ve Faiss ile ilgili işlemlerde, mevcut yapıyı analiz etmeden kod değiştirme.
+- **TODO Listesi:** Her yanıtının en sonunda, projenin mevcut durumuna göre güncellenmiş bir **"Sıradaki Adımlar / TODO Listesi"** maddeleri oluştur.
